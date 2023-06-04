@@ -1,4 +1,4 @@
-// Dependancies
+// Dependencies
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
@@ -28,20 +28,23 @@ app.get('/api/notes', (req, res) => {
     });
 }
 );
-
+// Post new note
 app.post('/api/notes', (req, res) => {
-    const newNote = req.body;
+    const newNote = req.body; // req.body is the data that the user submits
     fs.readFile('./db/db.json', 'utf8', (err, data) => {
         if (err) throw err;
         const notes = JSON.parse(data);
         notes.push(newNote);
         fs.writeFile('./db/db.json', JSON.stringify(notes), (err) => {
             if (err) throw err;
-            res.json(newNote);
+            res.json(newNote); // return new note to client
         });
     });
 }
 );
+
+//Delete note
+//app.delete
 
 // app listen
 app.listen(PORT, () => console.log(` http://localhost:${PORT}`));
