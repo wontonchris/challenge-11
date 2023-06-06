@@ -30,10 +30,10 @@ app.get('/api/notes', (req, res) => {
 );
 // Post new note
 app.post('/api/notes', (req, res) => {
-    const newNote = req.body; // req.body is the data that the user submits
+    const newNote = req.body; // get new note from client
     fs.readFile('./db/db.json', 'utf8', (err, data) => {
         if (err) throw err;
-        const notes = JSON.parse(data);
+        const notes = JSON.parse(data); //
         notes.push(newNote);
         fs.writeFile('./db/db.json', JSON.stringify(notes), (err) => {
             if (err) throw err;
@@ -45,6 +45,9 @@ app.post('/api/notes', (req, res) => {
 
 //Delete note
 //app.delete
+
+//error message
+app.get('*', (req, res) => res.status(404).send('404 Not Found'));
 
 // app listen
 app.listen(PORT, () => console.log(` http://localhost:${PORT}`));
